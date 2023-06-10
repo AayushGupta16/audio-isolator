@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import InputForm from '/Users/aayushgupta/youtube-voice-splitter/src/Components/InputForm'
-// import Loading from '/Users/aayushgupta/youtube-voice-splitter/src/Components/Loading'
-// import Results from '/Users/aayushgupta/youtube-voice-splitter/src/Components/Results'
+import InputForm from './Components/InputForm'
+import Loading from './Components/Loading'
+import Results from './Components/Results'
 //import { processVideo } from '/Users/aayushgupta/speakersplitting/src/Api/ProcessVideo';
 import GlobalStyle from './GlobalStyle';
 
