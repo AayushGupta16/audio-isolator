@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import InputForm from './Components/InputForm'
 import Loading from './Components/Loading'
 import Results from './Components/Results'
-//import { processVideo } from '/Users/aayushgupta/speakersplitting/src/Api/ProcessVideo';
-import GlobalStyle from './GlobalStyle';
 
 
 const Container = styled.div`
@@ -48,7 +46,7 @@ function App() {
     setLoading(true);
     const processVideo = async (userApiKey, youtubeUrl) => {
       try {
-        const response = await fetch('http://159.223.149.250:8000/process_video', { 
+        const response = await fetch('https://speakerisolatorapi.com/process_video', { 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }, 
           body: JSON.stringify({ api_key: userApiKey, youtube_url: youtubeUrl }), 
