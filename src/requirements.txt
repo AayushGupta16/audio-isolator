@@ -1,11 +1,6 @@
 os
 requests
 time
-pydub 
-yt_dlp
 requests_toolbelt.multipart.encoder 
 json
-tempfile
-flask
-gunicorn
-assemblyai
+
