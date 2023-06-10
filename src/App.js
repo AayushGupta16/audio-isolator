@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import InputForm from './Components/InputForm'
-import Loading from './Components/Loading'
-import Results from './Components/Results'
+import posthog from 'posthog-js';
+import InputForm from './Components/InputForm';
+import Loading from './Components/Loading';
+import Results from './Components/Results';
 
+posthog.init('phc_E6M5XGK759ftF4Lgr10HPPkBn8g9fc8fYSF9fWHH5z5', { api_host: 'https://app.posthog.com' });
 
 const Container = styled.div`
-font-family: 'Titillium Web', sans-serif;
-display: flex;
+  font-family: 'Titillium Web', sans-serif;
+  display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
@@ -20,6 +22,7 @@ const Heading = styled.h1`
   margin-bottom: 10px;
   font-size: 44px;
 `;
+
 const Description = styled.p`
   min-width: 80px;
   width: 60%;
@@ -27,6 +30,7 @@ const Description = styled.p`
   margin-bottom: 40px;
   text-align: center;
 `;
+
 const Footer = styled.footer`
   text-align: center;
   padding: 20px;
@@ -41,9 +45,15 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
 
+  useEffect(() => {
+    posthog.capture('pageview');
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    posthog.capture('video-processing-request');  // Only capturing the event
+
     const processVideo = async (userApiKey, youtubeUrl) => {
       try {
         const response = await fetch('https://speakerisolatorapi.com/process_video', { 
@@ -54,22 +64,20 @@ function App() {
         const data = await response.json();
         console.log(data);
         setResults(data);
-        setLoading(false);  // Add this line here
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setLoading(false); // Or here, to handle the error case as well
+        setLoading(false);
       }
     };
-  
     processVideo(apiKey, youtubeUrl);
   };
-  
 
   return (
     <>
       <Container>
         <Heading>YouTube Speaker Isolator</Heading>
-        <Description>Hey everyone, I made this website so you can isolate speakers from a Youtube Video. Just get an API key from AssemblyAI and paste the video you want to convert. Let me know if you have any suggestions at aayushgupta@startupshell.org. Heads up, videos will normally take 1/10 of their runtime to process, and podcasts / interviews work best. </Description>
+        <Description>Hey everyone, I made this website so you can isolate clips of individual speakers from a Youtube Video. To use, get an API key from AssemblyAI and paste the url of the Youtube video you want to convert. Your API Key is never stored, and let me know if you have any suggestions at aayushgupta@startupshell.org. Heads up, videos will normally take 1/10 of their runtime to process, and podcasts / interviews work best. </Description>
         <InputForm
           apiKey={apiKey}
           setApiKey={setApiKey}
@@ -81,7 +89,7 @@ function App() {
       </Container>
       <Footer>Made by Aayush Gupta at UMD's Startup Shell</Footer>
     </>
-  );  
+  );
 }
 
 export default App;
