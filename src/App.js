@@ -76,7 +76,7 @@ function App() {
   return (
     <>
       <Container>
-        <Heading>YouTube Speaker Isolator</Heading>
+        <Heading>YouTube Speaker Isolator [Not Maintained Anymore]</Heading>
         <Description>Hey everyone, I made this website so you can isolate clips of individual speakers from a Youtube Video. To use, get an API key from AssemblyAI and paste the url of the Youtube video you want to convert. Your API Key is never stored, and let me know if you have any suggestions at aayushgupta@startupshell.org. Heads up, videos will normally take 1/2 of their runtime to process, and podcasts / interviews work best. </Description>
         <InputForm
           apiKey={apiKey}
